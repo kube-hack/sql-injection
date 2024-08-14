@@ -13,8 +13,8 @@ exec_db:
 
 # Installs the helm chart
 install:
-	helm install postgres ./helm/sql-injection
+	helm install sql-injection ./chart
 
 # Uninstalls the helm chart
 uninstall:
-	helm uninstall postgres
+	helm uninstall sql-injection
