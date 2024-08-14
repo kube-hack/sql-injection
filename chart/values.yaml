@@ -1,0 +1,5 @@
+postgres:
+  user: postgres
+  database: postgres
+  password: postgres
+  host: postgres-db.default.svc.cluster.local:5432

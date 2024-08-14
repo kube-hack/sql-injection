@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-client
+  template:
+    metadata:
+      labels:
+        app: postgres-client
+    spec:
+      containers:
+        - name: postgres-client
+          image: ghcr.io/asteurer/kh-sql-injection:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: postgres-secret
+
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-client
+  labels:
+    app: postgres-client
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 8080
+  selector:
+    app: postgres-client
