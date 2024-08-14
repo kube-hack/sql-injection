@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: postgres-client
-          image: ghcr.io/asteurer/kh-sql-injection:latest
+          image: ghcr.io/kube-hack/sql-injection:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -22,7 +22,7 @@ spec:
             - configMapRef:
                 name: postgres-secret
 
---- 
+---
 
 apiVersion: v1
 kind: Service
