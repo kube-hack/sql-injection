@@ -1,4 +1,4 @@
-.PHONY: build push exec_db
+.PHONY: build push exec_db install uninstall
 # Builds the docker image of the database client and tags it
 build:
 	docker build . -f app.Dockerfile -t ghcr.io/kube-hack/sql-injection
