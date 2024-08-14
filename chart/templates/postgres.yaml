@@ -9,7 +9,6 @@ data:
   POSTGRES_PASSWORD: "{{ .Values.postgres.password }}"
   POSTGRES_URL: "postgresql://{{ .Values.postgres.user }}:{{ .Values.postgres.password }}@{{ .Values.postgres.host }}/{{ .Values.postgres.database }}?sslmode=disable"
 
-
 ---
 
 apiVersion: v1
@@ -54,7 +53,6 @@ spec:
             limits:
               memory: "1Gi"
               cpu: "500m"
-
       volumes:
         - name: schema-volume
           configMap:
