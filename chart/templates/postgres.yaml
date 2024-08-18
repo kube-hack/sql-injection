@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres-secret
+  name: creds-db-sql-injection
   labels:
-    app: postgres
+    app: creds-db-sql-injection
 data:
   POSTGRES_USER: "{{ .Values.postgres.user }}"
   POSTGRES_PASSWORD: "{{ .Values.postgres.password }}"
@@ -14,7 +14,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres-sql-schema
+  name: schema-db-sql-injection
 data:
   schema.sql: {{ .Files.Get "files/schema.sql" | indent 4 }}
 
@@ -23,26 +23,26 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-db
+  name: db-sql-injection
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres-db
+      app: db-sql-injection
   template:
     metadata:
       labels:
-        app: postgres-db
+        app: db-sql-injection
     spec:
       containers:
-        - name: postgres-db
+        - name: db-sql-injection
           image: postgres
           imagePullPolicy: Always
           ports:
             - containerPort: 5432
           envFrom:
             - configMapRef:
-                name: postgres-secret
+                name: creds-db-sql-injection
           volumeMounts:
             - mountPath: /docker-entrypoint-initdb.d/
               name: schema-volume
@@ -56,20 +56,20 @@ spec:
       volumes:
         - name: schema-volume
           configMap:
-            name: postgres-sql-schema
+            name: schema-db-sql-injection
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-db
+  name: db-sql-injection
   labels:
-    app: postgres-db
+    app: db-sql-injection
 spec:
   type: ClusterIP
   ports:
     - port: 5432
       targetPort: 5432
   selector:
-    app: postgres-db
+    app: db-sql-injection
