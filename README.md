@@ -47,7 +47,7 @@ helm install sql-injection kube-hack/sql-injection
 ### Port-forward the application
 
 ```sh
-kubectl port-forward svc/postgres-client 3000:3000
+kubectl port-forward svc/client-sql-injection 3000:3000
 ```
 
 After the application is port-forwarded (accessible via localhost), you can run the below actions:

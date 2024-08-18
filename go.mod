@@ -1,4 +1,4 @@
-module github.com/asteurer/kh-sql-injection
+module sql-injection
 
 go 1.22.4
 

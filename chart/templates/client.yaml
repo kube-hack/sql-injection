@@ -1,39 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-client
+  name: client-sql-injection
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres-client
+      app: client-sql-injection
   template:
     metadata:
       labels:
-        app: postgres-client
+        app: client-sql-injection
     spec:
       containers:
-        - name: postgres-client
+        - name: client-sql-injection
           image: ghcr.io/kube-hack/sql-injection:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
           envFrom:
             - configMapRef:
-                name: postgres-secret
+                name: creds-db-sql-injection
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-client
+  name: client-sql-injection
   labels:
-    app: postgres-client
+    app: client-sql-injection
 spec:
   type: ClusterIP
   ports:
     - port: 3000
       targetPort: 8080
   selector:
-    app: postgres-client
+    app: client-sql-injection
